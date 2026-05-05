@@ -17,9 +17,12 @@ jobs:
           sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
           pip install buildozer cython==3.0.3
       - name: Build
+        working-directory: ${{ github.workspace }}
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
-        run: buildozer android debug
+        run: |
+          ls -la
+          buildozer android debug 2>&1
         timeout-minutes: 90
       - name: Upload APK
         uses: actions/upload-artifact@v4
